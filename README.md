@@ -6,17 +6,25 @@ There are several ways to add or remove environment variables for a Windows C# C
 + Removing an Environment Variable
 
 # Adding an Environment Variable
+
+## Scope Current Process
 ```
 string newVariable = "MY_TEMP_VARIABLE";
 string value = "Hello, World!";
 Environment.SetEnvironmentVariable(newVariable, value);
 Console.WriteLine($"Added '{newVariable}' with value '{Environment.GetEnvironmentVariable(newVariable)}' to the current process.");
+```
 
+## Scope Current User
+```
 string newVariable = "MY_USER_VARIABLE";
 string value = "User-specific data";
 Environment.SetEnvironmentVariable(newVariable, value, EnvironmentVariableTarget.User);
 Console.WriteLine($"Added '{newVariable}' with value '{Environment.GetEnvironmentVariable(newVariable, EnvironmentVariableTarget.User)}' for the current user.");
+```
 
+## Scope Machine
+```
 string newVariable = "MY_MACHINE_VARIABLE";
 string value = "Machine-wide configuration";
 Environment.SetEnvironmentVariable(newVariable, value, EnvironmentVariableTarget.Machine);
@@ -24,11 +32,16 @@ Console.WriteLine($"Added '{newVariable}' with value '{Environment.GetEnvironmen
 ```
 
 # Removing an Environment Variable
+
+## Scope Current User
 ```
 string variableToRemove = "MY_USER_VARIABLE";
 Environment.SetEnvironmentVariable(variableToRemove, null, EnvironmentVariableTarget.User);
 Console.WriteLine($"Removed '{variableToRemove}' from the user scope.");
+```
 
+## Scope Current Process
+```
 string variableToRemove = "MY_TEMP_VARIABLE";
 Environment.SetEnvironmentVariable(variableToRemove, null);
 Console.WriteLine($"Removed '{variableToRemove}' from the current process.");
